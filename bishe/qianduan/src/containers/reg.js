@@ -10,7 +10,7 @@ class Reg extends Component {
           <h2>家具饰品商城</h2>
         </div>
         <div class="login-content">
-          <img src={img1} />
+          <images src={img1} />
           <div class="login-box">
             <h3>请注册</h3>
             <a href="login" class="to-reg">去登录</a>

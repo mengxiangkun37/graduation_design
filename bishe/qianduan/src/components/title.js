@@ -4,30 +4,30 @@ class Title extends Component {
     render() {
         return (
             <div>
-                 <div class="hmtop">
-                    <div class="hmtop-top">
-                        <div class="hmtop-left">
-                            <a href="user/show_personal"></a>
-                            <a href="user/show_unindex">[注销]</a>
+                 <div className="hmtop">
+                    <div className="hmtop-top">
+                        <div className="hmtop-left">
+                            <a href="login">s</a>
+                            <a href="login">[注销]</a>
                         </div>
-                        <div class="hmtop-right">
-                            <a href="home">商城首页</a>
-                            <a href="info" class="person">个人中心</a>
+                        <div className="hmtop-right">
+                            <a href="login">商城首页</a>
+                            <a href="login" className="person">个人中心</a>
                         </div>
                     </div>
-                    <div class="wrap">
-                        <form action="user/do_search" method="post" class="search">
+                    <div className="wrap">
+                        <form action="" method="post" className="search">
                             <input type="text" name="" id="input-search" placeholder="搜索" />
                             <input type="submit" name="" id="input-sub" value="搜  索" />
                         </form>
                     </div>
                 </div>
-                <div class="nav-table">
-                    <div class="nav-cont">
-                        <div class="nav-title">
+                <div className="nav-table">
+                    <div className="nav-cont">
+                        <div className="nav-title">
                             全部分类
 		                </div>
-                        <a href="home">商城首页</a>
+                        <a href="login">商城首页</a>
                     </div>
                 </div>
             </div>

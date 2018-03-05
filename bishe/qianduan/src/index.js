@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.less';
 import Containers from './containers';
+import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import {
     BrowserRouter as Router,
-    Route,
-    Link
-  } from 'react-router-dom'
+    Route
+  } from 'react-router-dom';
+  import storeCreate from './store';
+  let store = storeCreate();
 ReactDOM.render(  
+    <Provider store={store}> 
     <Router>
     <Route  component={Containers}/>
-    </Router>, document.getElementById('root')
+    </Router>
+    </Provider>,
+    document.getElementById('root')
     );
 registerServiceWorker();
