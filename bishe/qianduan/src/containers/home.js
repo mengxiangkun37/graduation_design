@@ -3,9 +3,12 @@ import img1 from '../assets/images/ss1.jpg';
 import img2 from '../assets/images/ss2.jpg';
 import img3 from '../assets/images/ss3.jpg';
 import img4 from '../assets/images/ss4.jpg';
-import Title from '../components/title';
+import Footer from '../components/footer';
 import { connect } from 'react-redux';
 import * as actions from './../actions/home/a_home';
+import {
+  Link
+} from 'react-router-dom';
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -16,16 +19,76 @@ class Home extends Component {
   componentDidMount() {
     this.props.home_Init();
   }
+
   render() {
     let {
-        home
+      home
     } = this.props
     console.log(home.data)
-    console.log(document.cookie)
     return (
       <div className='home'>
-        <Title />
-        {/* <div className="banner">
+        <div>
+          <div className="hmtop">
+            <div className="hmtop-top">
+              {
+                document.cookie &&
+                <div className="hmtop-left">
+                  <a href="login">{document.cookie.split(";")[1].split('=')[1]}</a>
+                  <Link to="home"
+                    onClick={() => {
+                      var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                      if (keys) {
+                        for (let i = keys.length; i--;)
+                          document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+                      }
+                    }}
+                  >[注销]</Link>
+                </div>
+              }
+              {
+                !document.cookie &&
+                <div className="hmtop-left">
+                  <a href="login">请登录</a>
+                  <a href="reg" className="person">免费注册</a>
+                </div>
+              }
+              <div className="hmtop-right">
+                {!document.cookie &&
+                  <div>
+                    <Link to="/login" className="person">个人中心</Link>
+                    <Link to="/login" className="person">购物车</Link>
+                    <Link to="/login" className="person">收藏夹</Link>
+                  </div>
+                }
+                {document.cookie &&
+                  <div>
+                    <Link to="/info" className="person">个人中心</Link>
+                    <Link to="/info" className="person">购物车</Link>
+                    <Link to="/info" className="person">收藏夹</Link>
+                  </div>
+                }
+              </div>
+            </div>
+            <div className="wrap">
+              <div className="logo">
+                <img src={require('./../assets/images/logo.png')} alt="" />
+              </div>
+              <form action="" method="post" className="search">
+                <input type="text" name="" id="input-search" placeholder="搜索" />
+                <input type="submit" name="" id="input-sub" value="搜  索" />
+              </form>
+            </div>
+          </div>
+          <div className="nav-table">
+            <div className="nav-cont">
+              <div className="nav-title">
+                全部分类
+		          </div>
+              <Link to="/home" >商城首页</Link>
+            </div>
+          </div>
+        </div>
+        <div className="banner">
           <ul className="banner-nav">
             {
               home.data.goodss.map((item, i) => {
@@ -44,11 +107,11 @@ class Home extends Component {
                   {
                     item.ccname
                   }
-                  {<div className={`${'access'} ${this.state.isOver ===item.ccid?'show':'none'}`}>
+                  {<div className={`${'access'} ${this.state.isOver === item.ccid ? 'show' : 'none'}`}>
                     {
                       item.aaa.map((items, j) => {
                         return <div key={j} className="white">
-                          <a className="link" href={'search/'+ items.cid}>
+                          <a className="link" href={'search/' + items.cid}>
                             <span>
                               {
                                 items.cname
@@ -65,21 +128,48 @@ class Home extends Component {
             }
           </ul>
           <ul className="a">
-            <li><img src={img1} /></li>
             <li><img src={img2} /></li>
+            <li><img src={img1} /></li>
             <li><img src={img3} /></li>
             <li><img src={img4} /></li>
           </ul>
-
           <div className="l">&lt;</div>
           <div className="r">&gt;</div>
         </div>
+
         <div className="shopMain">
-          <div className="shopMain-title">
-            <span>某城市</span>
-            <span>周边商品</span>
+          <div className="title">
+            <div className="title-span">
+              <span>热门商品</span>
+            </div>
+            <div className="title-span2">
+              <em className='left'></em>
+              <span>更多优惠好货 go></span>
+              <em></em>
+            </div>
           </div>
-        </div> */}
+          <ul className="goods-list">
+            {
+              home.data.shows.map((item, i) => {
+                return <li key={i} className="goods-line">
+                  <div className="goods">
+                    <Link to={'/single/' + item.wid}>
+                      <img src={require("./../assets/images/"+item.wpic)} alt="" />
+                    </Link>
+                    <div className="goods-cont">
+                      <span> {item.wtitle}</span>
+                    </div>
+                    <div className="goods-price">
+                      <strong>￥{item.wprice}</strong>
+                      <span>已售{item.shows}</span>
+                    </div>
+                  </div>
+                </li>
+              })
+            }
+          </ul>
+        </div>
+        <Footer />
       </div>
     );
   }

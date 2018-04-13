@@ -10,7 +10,6 @@ class Collection extends Component {
                     </div>
                     <div class="goods">
                         <div class="goods-info">
-
                             <div class="goods-pic">
                                 <a href="user/show_single?id=<?php echo $a->wid;?>"><img src="assets/uploads/<?php echo $a->wpic?>" /></a>
                             </div>
@@ -22,8 +21,8 @@ class Collection extends Component {
                                 <p>内容：2</p>
                             </div>
                             <div class="goods-btn">
-                                <a href="user/do_buy?id=<?php echo $a->wid;?>" >购买</a>
-                                <a href="user/do_delete_collect?id=<?php echo $a->wid;?>">删除</a>
+                                <a href="s" className="btn-left">购买</a>
+                                <a href="s"className="btn-left">删除</a>
                             </div>
 
                         </div>

@@ -8,7 +8,8 @@ import {
     data:{
      goods:[
        
-     ]
+     ],
+     search:''
     }     
   };
   

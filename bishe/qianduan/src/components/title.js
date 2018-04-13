@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import {
+	Link
+} from 'react-router-dom';
 class Title extends Component {
     render() {
         return (
@@ -11,7 +13,7 @@ class Title extends Component {
                             <a href="login">[注销]</a>
                         </div>
                         <div className="hmtop-right">
-                            <a href="login">商城首页</a>
+                            <Link to="/home">商城首页</Link>
                             <a href="login" className="person">个人中心</a>
                         </div>
                     </div>

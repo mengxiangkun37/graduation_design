@@ -71,6 +71,32 @@ router.get('/search/lth/:sid', async (ctx, next) => {
     console.log("错误");
   });
 })
+router.get('/search/byshows/:showsid', async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  let showsid = ctx.params.showsid;
+  ctx.body = await axios.get('http://127.0.0.1/new/user/do_search/?showsid='+showsid, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then((response) => {
+    return JSON.stringify(response.data);
+  }).catch((error) => {
+    console.log("错误");
+  });
+})
+router.get('/search/bytime/:timeid', async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  let timeid = ctx.params.timeid;
+  ctx.body = await axios.get('http://127.0.0.1/new/user/do_search/?timeid='+timeid, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then((response) => {
+    return JSON.stringify(response.data);
+  }).catch((error) => {
+    console.log("错误");
+  });
+})
 router.get('/search/htl/:ssid', async (ctx, next) => {
   ctx.set("Access-Control-Allow-Origin", "*");
   let ssid = ctx.params.ssid;
@@ -97,5 +123,37 @@ router.get('/single/:id', async (ctx, next) => {
     console.log("错误");
   });
 })
+router.post('/search/doSearch', async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  let search = ctx.request.body.search;
+  console.log(search);
+  console.log(search);
+  ctx.body = await axios.post('http://127.0.0.1/new/user/do_sear',qs.stringify({search:search}), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then((response) => {
+    return JSON.stringify(response.data);
+  }).catch((error) => {
+    console.log("错误");
+  });
+})
+
+router.post('/personal', async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  let uid = ctx.request.body.uid;
+  console.log(uid)
+  ctx.body = await axios.post('http://127.0.0.1/new/user/show_personal',qs.stringify({id:uid}), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then((response) => {
+    return JSON.stringify(response.data);
+  }).catch((error) => {
+    console.log("错误");
+  });
+})
+
+
 
 module.exports = router

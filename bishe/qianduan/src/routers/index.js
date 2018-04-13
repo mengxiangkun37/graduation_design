@@ -4,7 +4,6 @@ import Home from '../containers/home';
 import Search from '../containers/search';
 import Info from '../containers/personal/mine';
 import Single from '../containers/single';
-
 export default [
   {
     path: '/home',

@@ -9,18 +9,20 @@ export const user_login = () => {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    })
-      .then((res) => {
-        document.cookie= 'id='+ res.data.uid;
+    }).then((res) => {
+      if (res.data !== 2) {
+        document.cookie = 'id=' + res.data.uid;
+        document.cookie = 'name=' + res.data.uname;
         dispatch({
           type: actions.LOGIN,
           data: {
             data: res.data
           }
         });
-      }).catch((error) => {
-        console.log("s");
-      });
+      }
+    }).catch((error) => {
+      console.log("登录失败");
+    });
   }
 }
 

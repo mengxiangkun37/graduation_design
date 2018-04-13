@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/search/a_search';
 import {
-	Link
+  Link
 } from 'react-router-dom';
+import Footer from '../components/footer';
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -17,72 +18,143 @@ class Search extends Component {
   render() {
     let {
       search,
+      doSearch,
+      fieldChange,
       getSearch1,
-      getSearch2
-		} = this.props
-    console.log(search.data);
+      getSearch2,
+      getSearchByShows,
+      getSearchByTime
+    } = this.props
+
     return (
       <div className='search home'>
         <div className="hmtop">
           <div className="hmtop-top">
-            <div className="hmtop-left">
-              <a href="login">s</a>
-              <a href="reg">[注销]</a>
-            </div>
+            {
+              document.cookie &&
+              <div className="hmtop-left">
+                <span>{document.cookie.split(";")[1].split('=')[1]}</span>
+                <Link to={"/search/" + this.state.id}
+                  onClick={() => {
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if (keys) {
+                      for (let i = keys.length; i--;)
+                        document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString() + "; path=/";
+                    }
+                  }}
+                >[注销]</Link>
+              </div>
+            }
+            {
+              !document.cookie &&
+              <div className="hmtop-left">
+                <a href="/login">请登录</a>
+                <a href="reg" className="person">免费注册</a>
+              </div>
+            }
             <div className="hmtop-right">
-              <Link to="/home">商城首页</Link>
-              <a href="reg" className="person">个人中心</a>
-              <a href="reg" className="person">收藏夹</a>
+              {!document.cookie &&
+                <div>
+                  <Link to="/login" className="person">个人中心</Link>
+                  <Link to="/login" className="person">购物车</Link>
+                  <Link to="/login" className="person">收藏夹</Link>
+                </div>
+              }
+              {document.cookie &&
+                <div>
+                  <Link to="/info" className="person">个人中心</Link>
+                  <Link to="/info" className="person">购物车</Link>
+                  <Link to="/info" className="person">收藏夹</Link>
+                </div>
+              }
             </div>
           </div>
           <div className="wrap">
             <div className="logo">
-
+              <img src={require('./../assets/images/logo.png')} alt="" />
             </div>
-
-            <form className="search" action="user/do_sear" method="post">
-              <input type="text" name="search" id="input-search" placeholder="搜索" value="" />
-              <input type="submit" name="" id="input-sub" value="搜  索" />
+            <form className="search">
+              <input type="text"
+                name="search"
+                id="input-search"
+                placeholder="搜索"
+                value={search.data.search}
+                onChange={(e) => {
+                  fieldChange('search', e.target.value);
+                }}
+              />
+              <input type="submit"
+                name=""
+                id="input-sub"
+                value="搜  索"
+                onClick={(e) => {
+                  e.preventDefault();
+                  doSearch();
+                }}
+              />
             </form>
           </div>
-          <div className="nav-table">
-            <div className="nav-cont">
-              <div className="nav-title">
-                全部分类
+        </div>
+        <div className="nav-table">
+          <div className="nav-cont">
+            <div className="nav-title">
+              全部分类
 							</div>
-              <a href="reg">商城首页</a>
-            </div>
-          </div>
-          <div className="search-content">
-            <div className="search-nav">
-              <span
-                onClick={()=>{
-                  getSearch1(this.state.id);
-                  console.log(this.state.id)
-                }}
-              >由低到高</span>
-             <span
-              onClick={()=>{
-                getSearch2(this.state.id);
-                console.log(this.state.id)
-              }}
-              >由高到低</span>
-            </div>
-            <ul className="search-con">
-              {
-                (search.data.goods ?search.data.goods:[]).map((item, i) => {
-                  return<li key={i}>
-                   <Link to={'/single/'+item.id}><img src={"assets/uploads/"+item.wpic} /></Link>
-                    <div className="search-title">{item.wtitle}</div>
-                    <div className="search-price">￥{item.wprice}</div>
-                    <div className="search-collect">点击图片查看</div>
-                  </li>
-
-                })
-              }
-            </ul>
+            <Link to="/home">商城首页</Link>
           </div>
         </div>
+        <div className="search-title">
+          <div className='title-left'>
+            <ul>
+              <li
+                onClick={() => {
+                  getSearchByShows(this.state.id);
+                }}
+              >销量</li>
+              <li
+                onClick={() => {
+                  getSearch2(this.state.id);
+
+                }}
+              >价格从高到低</li>
+              <li
+                onClick={() => {
+                  getSearch1(this.state.id);
+                }}
+              >价格从低到高</li>
+              <li
+                onClick={() => {
+                  getSearchByTime(this.state.id);
+                }}
+              >上架时间</li>
+            </ul>
+          </div>
+          <div className='title-right'>
+            <span>共{search.data.goods.length}件商品</span>
+          </div>
+        </div>
+        <div className="searchMain">
+          <ul className="goods-list">
+            {
+              (search.data.goods ? search.data.goods : []).map((item, i) => {
+                return <li className="goods-line" key={i}>
+                  <div className="goods">
+                    <Link to={'/single/' + item.wid}><img src={require("./../assets/images/" + item.wpic)} /></Link>
+                    <div className="goods-cont">
+                      <span>{item.wtitle}</span>
+                    </div>
+                    <div className="goods-price">
+                      <strong>￥{item.wprice}</strong>
+                      <span>已售{item.shows}</span>
+                    </div>
+                  </div>
+                </li>
+              })
+            }
+
+          </ul>
+        </div>
+        <Footer />
       </div>
     );
   }

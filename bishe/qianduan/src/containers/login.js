@@ -6,9 +6,11 @@ import * as actions from './../actions/login/a_login';
 class Login extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      islogin: 0
+    }
   }
-  componentDidMount() {
+  componentWillMount() {
 
   }
   render() {
@@ -18,9 +20,8 @@ class Login extends Component {
       user_login,
       fieldChange
     } = this.props;
-   
-    // document.cookie = 'id='+ common.data.uid;
-   
+
+    console.log(common.data.uemail)
     return (
       <div className='login'>
         <div className="login-title">.
@@ -30,11 +31,7 @@ class Login extends Component {
         <div className="login-content">
           <img src={img1} />
           <div className="login-box">
-            <h3
-              onClick={() => {
-                user_login();
-              }}
-            >家具饰品商城</h3>
+            <h3>家具饰品商城</h3>
             <a href="reg" className="to-reg">去注册</a>
             <form action="user/do_login" method="post">
               <div className="user-name">
@@ -49,8 +46,8 @@ class Login extends Component {
                   }}
                 />
               </div>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <div className="password">
                 <label id="i-p"></label>
                 <input
@@ -58,23 +55,30 @@ class Login extends Component {
                   name="pwd" id="pass"
                   placeholder='请输入密码'
                   value={common.data.upass}
-                  onChange={ (e) => {
+                  onChange={(e) => {
                     fieldChange('upass', e.target.value);
                   }}
                 />
               </div>
-              <br/>
+              <br />
+              {
+                this.state.islogin === 1 &&
+                <div>账号或密码错误！</div>
+              }
               <input type="submit"
                 name=""
                 id="to-index"
                 value="登录"
                 onClick={(e) => {
                   user_login();
-                    e.preventDefault();
-                    this.context.router.history.push({
-                    pathname: 'home'
-                });
-               
+                  e.preventDefault();
+                  setTimeout(() => {
+                    document.cookie ? this.context.router.history.push({
+                      pathname: 'home'
+                    }) : this.context.router.history.push({
+                      pathname: 'login'
+                    })
+                  }, 300)
                 }}
               />
             </form>
@@ -84,7 +88,7 @@ class Login extends Component {
     );
   }
 }
-Login.contextTypes  = {
+Login.contextTypes = {
   router: PropTypes.object
 }
 

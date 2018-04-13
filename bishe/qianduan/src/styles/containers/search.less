@@ -1,68 +1,87 @@
 .search{
-	.search-nav{
-		width: 1198px;
-		height: 38px;
-		border: 1px solid #999;
-		margin: 10px auto;
-		border-radius: 2%;
-		background: #eee;
+	.search-title{	 
+    border-top:1px solid rgba(179, 193, 226, 0.39);
+    border-bottom:1px solid rgba(179, 193, 226, 0.39);
+    color: #333;
+    line-height: 50px;
+    margin: 15px 75px;
+    background:#f8f8f8;
+		height: 50px;
+	  display:flex;
+    justify-content:space-between;
+		.title-left{
+      margin-left: 10px;
+			ul{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 30px;
+				li{
+          cursor: pointer;
+          line-height: 30px;
+          padding:0 10px;
+          height: 30px;
+          border:1px solid rgb(228, 227, 227);
+          float: left;
+        }
+        li:hover{
+          border:1px solid rgb(204, 35, 35);
+        }
+			}
+    }
+    .title-right{
+      width: 100px;
+    }
 	}
-	.search-nav span{
-		display: inline-block;
-		width: 99px;
-		height: 38px;
-		border-right: 1px solid #999;
-		text-align: center;
-		line-height: 38px;
-		cursor: pointer;
-	}
-	.search-nav span:hover{
-		color: blue;
-	}
-	.search-nav span:first-child{
-		/*background: #999;*/
-	}
-	.search-con{
-		width: 1100px;
-		margin: 0 auto;
-	}
-	.search-con li{
-		width: 240px;
-		height: 320px;
-		margin: 10px;
-		border: 1px #e8e8e8 solid;
-		float: left;
-		overflow: hidden;
-	}
-	.search-con li:hover{
-		border: 1px #999 solid;
-	}
-	.search-con img{
-		width: 240px;
-		height: 240px;
-	}
-	.search-price{
-		width: 100px;
-		height: 20px;
-		float: left;
-		margin-top: 20px;
-		margin-left: 20px;
-		color: #e4393c;
-		font-weight: 600;
-	}
-	.search-title{
-		width: 180px;
-		height: 20px;
-		margin-left: 20px;
-	}
-	.search-collect{
-		width: 100px;
-		height: 20px;
-		float: right;
-		margin-top: 20px;
-		margin-right: 20px;
-		text-align: right;
-		font-weight: 600;
-	}
+	.searchMain{
+    overflow: hidden;
+		padding: 15px 0;
+		background:#f8f8f8;
+		height: 100%;
+		img{
+		  margin: 1px 0 0 1px;
+      width: 284px;
+      height: 200px;
+		}   
+	   .goods-list{
+		  margin: 0 0 15px 75px;
+		.goods-line{
+		  float: left;
+		  margin-right: 15px;
+		  margin-bottom: 10px;
+		  width: 286px;
+		  border: 1px solid rgba(10, 48, 134, 0.29);
+		  .goods{
+        height: 278px;
+			.goods-cont{
+			  height: 30px;
+			  line-height: 30px;
+			  margin:5px 8px;
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			  white-space: nowrap; 
+			}
+			.goods-cont span:hover{
+			  cursor: pointer;
+			  color: cornflowerblue;
+			}
+			.goods-price{
+			  display: flex;
+			  justify-content:space-between;
+			  height: 30px;
+			  line-height: 30px;
+			  margin:0 8px;
+			  strong{
+				color:rgb(190, 7, 7);
+				font-size: 16px;
+			  }
+			  span{
+				color:rgb(141, 133, 133);
+			  }
+			}
+		  }
+		}
+	   }
+	  }
 	
 }
