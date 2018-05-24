@@ -4,6 +4,8 @@ import Home from '../containers/home';
 import Search from '../containers/search';
 import Info from '../containers/personal/mine';
 import Single from '../containers/single';
+import Backstage from '../containers/backstage/index';
+import Business from '../containers/business/index';
 export default [
   {
     path: '/home',
@@ -28,5 +30,13 @@ export default [
   {
     path: '/single/:id',
     component: Single
+  },
+  {
+    path: '/admin',
+    component: Backstage
+  },
+  {
+    path: '/business',
+    component: Business
   }
 ]

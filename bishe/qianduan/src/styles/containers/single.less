@@ -39,13 +39,31 @@
         color: rgb(202, 28, 28);
       }
 			.single-con{
-        margin-top: 20px;
+        margin-top: 10px;
         display:flex;
         justify-content:space-between;
         background: #f8f8f8;
         height: 60px;
         .left{
           line-height: 60px;
+           input{
+              width: 35px;
+              height: 30px;
+              text-align: center;
+              margin-left: 15px;
+            }
+            .font{
+              background: rgb(221, 213, 202);
+              text-align: center;
+              line-height: 30px;
+              display: inline-block;
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+            }
+            .font:hover{
+              background: rgba(236, 52, 52, 0.404)
+            }
         }
         .right{
           cursor: pointer;
@@ -53,6 +71,9 @@
           margin-right: 30px;
           .pj:hover{
             color: rgb(240, 7, 7)
+          }
+          .red{
+            color:red;
           }
         }
         span{
@@ -81,6 +102,9 @@
           color: rgb(253, 7, 7);
           text-align: center;
           line-height: 45px;
+          a{
+            color: rgb(253, 7, 7);
+          }
         }
         .buy:hover{
           background-color: rgba(250, 245, 245, 0.514);
@@ -93,6 +117,9 @@
           color: rgb(252, 251, 250);
           text-align: center;
           line-height: 47px;
+          a{
+            color: rgb(252, 251, 250);
+          }
         }
         .col:hover{
           background-color: rgba(241, 16, 16, 0.514);
@@ -101,5 +128,20 @@
       
    
 		}
-	}
+  }
+  .single-pl-all{
+    .single-pl-title{
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      background: #f8f8f8;
+    }
+    width: 1000px;
+    margin: 0 auto;
+    .single-pl{
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+    }
+  }
 }

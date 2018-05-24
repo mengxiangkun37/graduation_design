@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Title from '../../components/title';
 import PersonalInfo from './personal_Info';
 import BuyInfo from './buy_info';
-import Update from './update';
-import Upload from './upload';
 import Collection from './collection';
 import {
   Link
@@ -25,13 +23,13 @@ class Mine extends Component {
               {
                 document.cookie &&
                 <div className="hmtop-left">
-                  <a href="login">{document.cookie.split(";")[1].split('=')[1]}</a>
+                  <span>{document.cookie.split(";")[1].split('=')[1]==='null'?'未命名用户':document.cookie.split(";")[1].split('=')[1]}</span>
                   <a href="login"
                     onClick={(e) => {
                       var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
                       if (keys) {
                         for (var i = keys.length; i--;)
-                          document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+                          document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString() + "; path=/";
                       }
                     }}
                   >[注销]</a>
@@ -39,7 +37,7 @@ class Mine extends Component {
               }
               <div className="hmtop-right">
                 <Link to="/home">商城首页</Link>
-                <Link to="/info" className="person">尊敬的{document.cookie.split(";")[1].split('=')[1]}您好</Link>
+                <Link to="/info" className="person">尊敬的{document.cookie.split(";")[1].split('=')[1]==='null'?'未命名用户':document.cookie.split(";")[1].split('=')[1]}您好</Link>
               </div>
             </div>
             <div className="mine-wrap">
@@ -62,34 +60,31 @@ class Mine extends Component {
                 });
               }}
             >个人信息</li>
-            <li className="sheet sheet-con"
+            {/* <li className="sheet sheet-con"
               onClick={() => {
                 this.setState({
                   type: 2
                 });
               }}
-            >收货地址</li>
+            >收货地址</li> */}
             <li className="sheet sheet-con"
               onClick={() => {
                 this.setState({
                   type: 4
                 });
               }}
-            >购物车</li>
+            >购买记录</li>
             <li className="sheet sheet-con"
               onClick={() => {
                 this.setState({
                   type: 5
                 });
               }}
-            >购买记录</li>
+            >购物车</li>
           </ul>
           <div>
             {
               this.state.type === 1 && <PersonalInfo />
-            }
-            {
-              this.state.type === 2 && <Update />
             }
             {
               this.state.type === 4 && <BuyInfo />

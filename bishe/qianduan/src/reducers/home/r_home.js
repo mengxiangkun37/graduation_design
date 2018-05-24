@@ -34,7 +34,7 @@ import {
       {
         return updateState(state, action.data);
       }
-      case home.FIELD_CHANGE:
+      case home.HOME_CHANGE:
       {
         return updateState(state, action.data);
       }

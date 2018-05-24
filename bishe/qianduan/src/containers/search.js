@@ -33,7 +33,7 @@ class Search extends Component {
             {
               document.cookie &&
               <div className="hmtop-left">
-                <span>{document.cookie.split(";")[1].split('=')[1]}</span>
+                <span>{document.cookie.split(";")[1].split('=')[1]==='null'?'未命名用户':document.cookie.split(";")[1].split('=')[1]}</span>
                 <Link to={"/search/" + this.state.id}
                   onClick={() => {
                     var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
@@ -56,15 +56,11 @@ class Search extends Component {
               {!document.cookie &&
                 <div>
                   <Link to="/login" className="person">个人中心</Link>
-                  <Link to="/login" className="person">购物车</Link>
-                  <Link to="/login" className="person">收藏夹</Link>
                 </div>
               }
               {document.cookie &&
                 <div>
                   <Link to="/info" className="person">个人中心</Link>
-                  <Link to="/info" className="person">购物车</Link>
-                  <Link to="/info" className="person">收藏夹</Link>
                 </div>
               }
             </div>

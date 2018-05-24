@@ -14,7 +14,8 @@ class PersonalInfo extends Component {
   render() {
     let {
       personal,
-      fieldChange
+      fieldChange,
+      changePersonal
     } = this.props;
     console.log(personal.data)
     return (
@@ -30,14 +31,14 @@ class PersonalInfo extends Component {
           </div>
           <form id="user-change" >
             <div className="change">
-              <label for="uname">用户名：</label>
+              <label htmlFor="uname">用户名：</label>
               <span>{personal.data.user.uemail}</span>
             </div>
             <div className="change">
-              <label for="uname">昵称</label>
+              <label htmlFor="uname">昵称</label>
               <input type="text"
                 name="uname"
-                placeholder="昵称"
+                placeholder="请填写昵称"
                 id="uname"
                 value={personal.data.user.uname}
                 onChange={(e) => {
@@ -46,7 +47,7 @@ class PersonalInfo extends Component {
               />
             </div>
             <div className="change">
-              <label for="usex">性别</label>
+              <label htmlFor="usex">性别</label>
               <input type="text"
                 name="usex" id="usex"
                 placeholder="男/女"
@@ -57,7 +58,7 @@ class PersonalInfo extends Component {
               />
             </div>
             <div className="change">
-              <label for="ubirth">城市</label>
+              <label htmlFor="ubirth">城市</label>
               <input type="text"
                 name="ubirth"
                 id="ubirth"
@@ -69,7 +70,7 @@ class PersonalInfo extends Component {
               />
             </div>
             <div className="change">
-              <label for="utel">电话</label>
+              <label htmlFor="utel">电话</label>
               <input type="text"
                 name="utel"
                 id="utel"
@@ -81,7 +82,16 @@ class PersonalInfo extends Component {
               />
             </div>
 
-            <input type="submit" id="submit" value="提交 修改" className="sub" />
+            <input
+              type="submit"
+              id="submit"
+              value="提交 修改"
+              className="sub"
+              onClick={(e)=>{
+                changePersonal();
+                e.preventDefault();
+              }}
+            />
           </form>
         </div>
       </div>

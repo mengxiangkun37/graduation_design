@@ -18,7 +18,7 @@ export const gethome = () => {
     })
       .then((res) => {
         dispatch({
-          type: actions.FIELD_CHANGE,
+          type: actions.HOME_CHANGE,
           data: {
             data: res.data
           }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/single/a_single';
 import Footer from '../components/footer';
+
 import {
   Link
 } from 'react-router-dom';
@@ -9,7 +10,8 @@ class Single extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
+      type: 0
     }
   }
   componentDidMount() {
@@ -17,13 +19,16 @@ class Single extends Component {
   }
   render() {
     let {
-      single
+      single,
+      fieldChange,
+      doBuy,
+      doAdd
     } = this.props
-
-    let dataId = single.data.id[0] || [];
+    console.log(single);
+    let dataId = single.data.id || [];
     let dataPl = single.data.pl || [];
-    console.log(typeof dataId.wpic)
-    console.log(typeof dataId.wpic)
+    console.log(dataId);
+    console.log(dataPl);
     return (
       <div className='single home'>
         <div className="hmtop">
@@ -31,7 +36,7 @@ class Single extends Component {
             {
               document.cookie &&
               <div className="hmtop-left">
-                <span>{document.cookie.split(";")[1].split('=')[1]}</span>
+                <span>{document.cookie.split(";")[1].split('=')[1]==='null'?'未命名用户':document.cookie.split(";")[1].split('=')[1]}</span>
                 <Link to={"/single/" + this.state.id}
                   onClick={() => {
                     var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
@@ -54,21 +59,17 @@ class Single extends Component {
               {!document.cookie &&
                 <div>
                   <Link to="/login" className="person">个人中心</Link>
-                  <Link to="/login" className="person">购物车</Link>
-                  <Link to="/login" className="person">收藏夹</Link>
                 </div>
               }
               {document.cookie &&
                 <div>
                   <Link to="/info" className="person">个人中心</Link>
-                  <Link to="/info" className="person">购物车</Link>
-                  <Link to="/info" className="person">收藏夹</Link>
                 </div>
               }
             </div>
           </div>
           <div className="wrap">
-            <div class="logo">
+            <div className="logo">
               <img src={require('./../assets/images/logo.png')} alt="" />
             </div>
             <form action="" method="post" className="search">
@@ -84,58 +85,6 @@ class Single extends Component {
               <Link to="/home">商城首页</Link>
             </div>
           </div>
-          {/* <div className="small">
-            <a href="user/do_search">搜索</a>
-            <span >/物品详情页</span>
-          </div>
-          <div className="single-content">
-            {
-              dataId.wpic &&
-              <img src={require("./../assets/images/" + dataId.wpic)} />
-            }
-            <div className="single-info">
-              <div className="single-title">
-                {dataId.wtitle}
-              </div>
-              <div className="single-con">
-                <span>卖家昵称：{dataId.uname}</span><br />
-                <span>卖家电话：{dataId.utel}</span><br />
-                <span>所在城市：{dataId.name}</span><br />
-                <span>价格：<span className="spc">￥{dataId.wprice}</span></span><br />
-                <span>商品描述：{dataId.wcon}</span>
-              </div>
-              <a href="user/do_collect?id=<?php echo $i->wid?>" className="col">立即收藏</a>
-            </div>
-
-          </div>
-          <hr />
-          <div className="user_pl">
-            <h3 align="center">评论区</h3>
-            {
-              dataPl.map((item, i) => {
-                return <div key={i}>
-                  <div>
-                    <span>评论人：</span>
-                    <span>{item.aaa[0].uname}</span><br />
-                  </div>
-                  <span>评论时间：</span>
-                  <span>{item.pltime}</span><br />
-                  <span>评论内容：</span>
-                  <span>{item.plcont}</span><br />
-                  <br /><br />
-                </div>
-              })}
-
-          </div>
-          <hr />
-          <div className="pl">
-            <form action="" method='post'>
-              <h3>点评：</h3>
-              <input type="hidden" name="wid" value="" id="wid" />
-              <textarea name="pcont" id="pcont" cols="40" rows="8"></textarea>
-              <input type="submit" id='p_btn' value="提交评论" />
-            </form>
-          </div> */}
 
           <div className='single-title'>
             <div className='single-title-cont'>
@@ -167,6 +116,12 @@ class Single extends Component {
                   <span>上架时间：</span>
                   <span>{dataId.wtime}</span>
                 </div>
+                <div className="right">
+                  <div>
+                    <span>库存</span>
+                    <span className="">{dataId.kucun}</span>
+                  </div>
+                </div>
               </div>
               <div className="single-con">
                 <div className="left">
@@ -177,26 +132,111 @@ class Single extends Component {
                   <div>
                     <span>已售</span>
                     <span className="">{dataId.shows}</span>
-                    <span className="pj">评价</span>
-                    <span className="">5655</span>
                   </div>
                 </div>
 
               </div>
-              <div className="buy-col">
-                <div className="buy">
-                  <span>
-                    立即购买
-                </span>
+              <div className="single-con">
+                <div className="left">
+                  <span>购买数量：</span>
+                  <span className="font"
+                    onClick={() => {
+                      var a = single.data.nums - 1;
+                      if (a < 1) {
+                        a = 1;
+                        this.setState({
+                          type: 1
+                        })
+                      } else {
+                        this.setState({
+                          type: 0
+                        })
+                      }
+                      fieldChange('nums', a);
+                    }}
+                  >-</span>
+                  <input
+                    type="text"
+                    value={single.data.nums}
+                  />
+                  <span className="font"
+                    onClick={() => {
+                      var a = single.data.nums + 1;
+                      if (a > dataId.kucun) {
+                        a = dataId.kucun;
+                        this.setState({
+                          type: 2
+                        })
+                      } else {
+                        this.setState({
+                          type: 0
+                        })
+                      }
+                      fieldChange('nums', a);
+                    }}
+                  >+</span>
                 </div>
-                <div className="col">
-                  <span>
-                    加入购物车
-                </span>
-                </div>
+                {
+                  this.state.type === 1 &&
+                  <div className="right">
+                    <span className="red">所选商品数量不能小于1</span>
+                  </div>
+                }
+                {
+                  this.state.type === 2 &&
+                  <div className="right">
+                    <span className="red">所选商品数量不能大于库存</span>
+                  </div>
+                }
               </div>
+              {
+                !document.cookie && <div className="buy-col">
+                  <Link className="buy" to="/login">
+                    立即购买
+                    </Link>
+                  <Link className="col" to="/login">
+                    加入购物车
+                    </Link>
+                </div>
+              }
 
+              {
+                document.cookie && <div className="buy-col">
+                  <div className="buy"
+                    onClick={() => {
+                      doBuy(document.cookie.split(";")[0].split('=')[1], dataId.wid, single.data.nums);
+                      alert('购买成功');
+                    }}
+                  >
+                    <span>
+                      立即购买
+                  </span>
+                  </div>
+                  <div className="col"
+                    onClick={() => {
+                      doAdd(document.cookie.split(";")[0].split('=')[1], dataId.wid, single.data.nums);
+
+                    }}
+                  >
+                    <span>
+                      加入购物车
+                     </span>
+                  </div>
+                </div>
+              }
             </div>
+          </div>
+          <div className="single-pl-all">
+            <h3 className="single-pl-title">评论信息</h3>
+            {
+              dataPl.map((item, i) => {
+               return <div key={i} className="single-pl">
+                  <span>{item.pltime}</span>&nbsp;&nbsp;
+                  <span>{item.aaa[0]===undefined?'匿名':item.aaa[0].uname}</span>：&nbsp;&nbsp;
+                  <span>{item.plcont}</span>
+                </div>
+              })
+            }
           </div>
           <Footer />
         </div>

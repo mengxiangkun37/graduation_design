@@ -33,13 +33,13 @@ class Home extends Component {
               {
                 document.cookie &&
                 <div className="hmtop-left">
-                  <a href="login">{document.cookie.split(";")[1].split('=')[1]}</a>
+                  <span>{document.cookie.split(";")[1].split('=')[1]==='null'?'未命名用户':document.cookie.split(";")[1].split('=')[1]}</span>
                   <Link to="home"
                     onClick={() => {
                       var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
                       if (keys) {
                         for (let i = keys.length; i--;)
-                          document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+                          document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString() + "; path=/";
                       }
                     }}
                   >[注销]</Link>
@@ -56,15 +56,11 @@ class Home extends Component {
                 {!document.cookie &&
                   <div>
                     <Link to="/login" className="person">个人中心</Link>
-                    <Link to="/login" className="person">购物车</Link>
-                    <Link to="/login" className="person">收藏夹</Link>
                   </div>
                 }
                 {document.cookie &&
                   <div>
                     <Link to="/info" className="person">个人中心</Link>
-                    <Link to="/info" className="person">购物车</Link>
-                    <Link to="/info" className="person">收藏夹</Link>
                   </div>
                 }
               </div>
@@ -128,8 +124,8 @@ class Home extends Component {
             }
           </ul>
           <ul className="a">
-            <li><img src={img2} /></li>
             <li><img src={img1} /></li>
+            <li><img src={img2} /></li>
             <li><img src={img3} /></li>
             <li><img src={img4} /></li>
           </ul>
@@ -154,7 +150,7 @@ class Home extends Component {
                 return <li key={i} className="goods-line">
                   <div className="goods">
                     <Link to={'/single/' + item.wid}>
-                      <img src={require("./../assets/images/"+item.wpic)} alt="" />
+                      <img src={require("./../assets/images/" + item.wpic)} alt="" />
                     </Link>
                     <div className="goods-cont">
                       <span> {item.wtitle}</span>

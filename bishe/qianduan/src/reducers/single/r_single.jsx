@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   isFetching: true,
   isLogined: false,
   data: {
+    nums:1,
     id: [
       {
       }
